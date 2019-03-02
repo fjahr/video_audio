@@ -12,7 +12,7 @@ $ brew install ffmpeg
 ## Usage
 
 1. Move the video file (mp4) and all audio files (mp3s) into the `in` folder.
-2. Edit your `script.py` file in the root folder. You will need to add the name
+2. Add your `script.py` file in the root folder. You will need to add the name
 of the video file and all the audio files together with the time in the video
 they should start (in seconds). Use `script.example.py` for reference.
 3. Run the `main.py` file from the main folder:
