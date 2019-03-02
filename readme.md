@@ -2,15 +2,20 @@
 
 Join video files with audio tracks using ffmpeg.
 
-## Requirements
+## Install
 
 Install `ffmpeg`:
 ```
 $ brew install ffmpeg
 ```
 
-## Install
+## Usage
 
+1. Move the video file (mp4) and all audio files (mp3s) into the `in` folder.
+2. Edit your `script.py` file in the root folder. You will need to add the name
+of the video file and all the audio files together with the time in the video
+they should start (in seconds). Use `script.example.py` for reference.
+3. Run the `main.py` file from the main folder:
 ```
-$ pip3 install -r requirements.txt
+$ python3 main.py
 ```
