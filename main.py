@@ -5,21 +5,28 @@ import subprocess
 import script
 
 def main():
+    print("Removing old result file...")
     if os.path.isfile("out/result.mp4"):
         os.remove("out/result.mp4")
+
+    print("Joining audio files...")
     join_audio()
-    command = 'ffmpeg'
+
+    print("Combining audio and video...")
+    command = 'ffmpeg -v quiet'
     command = ''.join([command, ' -i in/', script.video])
     command = ''.join([command, ' -i in/', 'audio.mp3'])
     command = ''.join([command, ' out/result.mp4'])
-
     subprocess.run([command], shell=True)
+
+    print("Cleaning up...")
     if os.path.isfile("in/audio.mp3"):
         os.remove("in/audio.mp3")
-    print("Done")
+
+    print("Success!")
 
 def join_audio():
-    command = 'ffmpeg'
+    command = 'ffmpeg -v quiet'
     files = []
     plays = []
     durations = []
@@ -58,13 +65,10 @@ def join_audio():
 
     command = ''.join([command, 'concat=n=', str(len(files) + len(silences)), ':v=0:a=1[outa]" -map [outa] in/audio.mp3'])
 
-    print(command)
-    print(sum(durations))
     subprocess.run([command], shell=True)
 
 
 def pairwise(iterable):
-    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
     a, b = itertools.tee(iterable)
     next(b, None)
     return zip(a, b)
