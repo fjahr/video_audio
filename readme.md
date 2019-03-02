@@ -19,3 +19,10 @@ they should start (in seconds). Use `script.example.py` for reference.
 ```
 $ python3 main.py
 ```
+
+## Debugging
+
+To see the commands being run and outputs from `ffmpeg` run with `debug` option:
+```
+$ python3 main.py debug
+```
