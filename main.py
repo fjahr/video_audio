@@ -24,9 +24,13 @@ def main():
     if not debug:
         command = ''.join([command, ' -v quiet'])
 
-    command = ''.join([command, ' -i in/', script.video])
     command = ''.join([command, ' -i in/', 'audio.mp3'])
-    command = ''.join([command, ' out/result.mp4'])
+    command = ''.join([command, ' -i in/', script.video])
+    # if you want to cut the video add -shortest option before output name again
+    command = ''.join([command, ' -filter_complex \
+            "[0:a]volume=1.0[a1];[1:a]volume=0.05[a2]; \
+            [a1][a2]amerge,pan=stereo|c0<c0+c2|c1<c1+c2[out]" \
+            -map 1:v -map "[out]" -c:v copy out/result.mp4'])
 
     if debug:
         print(''.join(['Running: ', command]))
@@ -74,8 +78,6 @@ def join_audio(debug):
     command = ''.join([command, ' -filter_complex "'])
 
     for i, silence in enumerate(silences):
-        # hacked because of negative pauses
-        silence = 0
         command = ''.join([command, 'aevalsrc=exprs=0:d=', str(silence), '[silence', str(i), '], '])
 
     first = True
